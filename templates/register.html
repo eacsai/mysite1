@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.cs' %}s">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-6 col-lg-4 col-xl-2" id="Layer1" style="position:absolute; width:100%; height:100%; z-index:-1">
+                <img src="{% static 'images/bg.jpg' %}" height="100%" width="100%"/>
+            </div>
+
+            {% if not user.is_authenticated %}
+                 <div class="container" style="margin-top: 30px !important;">
+                     <button type="button" class="btn btn-light"><a href="{% url 'login' %}" style="color: white !important;font-size: x-large !important;">login</a></button>&nbsp;&nbsp;
+                     <button type="button" class="btn btn-light"><a href="{% url 'home' %}" style="color: white !important;font-size: x-large !important;">back</a></button>&nbsp;&nbsp;
+                 </div>
+            {% else %}
+                <div class="container" style="margin-top: 30px !important;">
+                    <button type="button" class="btn btn-light" style="color: white !important;font-size: x-large;">{{ user.username }}</button>&nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: rgb(196, 204, 212) !important;font-size: x-large;">
+                        Dropdown
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-left">
+                        <a class="dropdown-item" href="{% url 'logout' %}?from{{ request.get_full_path }}">exit</a>
+                        <a class="dropdown-item" href="{% url 'blog_list' %}">blog</a>
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+
+            <div class="col-sm-9 col-md-6 col-lg-8 col-xl-10">
+                <form action="{% url 'register' %}" method="post">
+                    {% csrf_token %}
+                    <div id="login-box">
+                        <h1>register</h1>
+                        <div class="form">
+                            <div class="item">
+                                {% for field in reg_form %}
+                                    <p>{{ field }}</p>
+                                    <input type="password" autocomplete="new-password" style="display: none"/>
+                                {% endfor %}
+                                <span class="pull-left text-danger" style="color: white">{{ login_form.non_field_errors.0 }}</span>
+                            </div>
+                        </div>
+                        <button>register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{#    {% if not user.is_authenticated %}#}
+{#         <div class="container" style="margin-top: 30px !important;">#}
+{#             <button type="button" class="btn btn-light"><a href="{% url 'login' %}" style="color: white !important;font-size: x-large !important;">login</a></button>&nbsp;&nbsp;#}
+{#             <button type="button" class="btn btn-light"><a href="{% url 'home' %}" style="color: white !important;font-size: x-large !important;">back</a></button>&nbsp;&nbsp;#}
+{#         </div>#}
+{#    {% else %}#}
+{#        <div class="container" style="margin-top: 30px !important;">#}
+{#            <button type="button" class="btn btn-light" style="color: white !important;font-size: x-large;">{{ user.username }}</button>&nbsp;&nbsp;#}
+{#            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: rgb(196, 204, 212) !important;font-size: x-large;">#}
+{#                Dropdown#}
+{#            </button>#}
+{#            <div class="dropdown-menu dropdown-menu-left">#}
+{#                <a class="dropdown-item" href="{% url 'logout' %}?from{{ request.get_full_path }}">exit</a>#}
+{#                <a class="dropdown-item" href="{% url 'blog_list' %}">blog</a>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
+
+
+
+
+{#    <form action="{% url 'register' %}" method="post">#}
+{#        {% csrf_token %}#}
+{#        <div id="login-box">#}
+{#            <h1>register</h1>#}
+{#            <div class="form">#}
+{#                <div class="item">#}
+{#                    {% for field in reg_form %}#}
+{#                        <p>{{ field }}</p>#}
+{#                        <input type="password" autocomplete="new-password" style="display: none"/>#}
+{#                    {% endfor %}#}
+{#                    <span class="pull-left text-danger" style="color: white">{{ login_form.non_field_errors.0 }}</span>#}
+{#                </div>#}
+{#            </div>#}
+{#            <button>register</button>#}
+{#        </div>#}
+{#    </form>#}
+</body>
+</html>
+    

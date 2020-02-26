@@ -1,0 +1,176 @@
+﻿{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    list
+{% endblock %}
+
+{% block content %}
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#	<meta charset="UTF-8">#}
+{#	<meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#	<meta name="description" content="Tigris - Personal Portfolio Template" />#}
+{#	<meta name="keywords" content="business card, creative, creative portfolio, cv theme, online resume, personal, portfolio, professional cv, responsive portfolio, resume, resume theme, vcard" />#}
+{#	<meta name="author" content="beingeorge" />#}
+{#	<meta name="theme-color" content="#1f1f20">#}
+{##}
+{#	<title>Tigris - Personal Portfolio Template</title>#}
+{##}
+{#	<!-- CSS -->#}
+{#	<link rel="stylesheet" href="{% static '' %}bootstrap/css/bootstrap.min.css">#}
+{##}
+{#	<!-- Font Awesome CSS -->#}
+{#	<link href="{% static '' %}css/all.css" rel="stylesheet" media="screen">#}
+{##}
+{#	<!--[if lte IE 7]> #}
+{#		<script src="{% static '' %}js/icons-lte-ie7.js"></script>#}
+{#	<![endif]-->#}
+{##}
+{#	<link href="{% static '' %}css/vendor.css" rel="stylesheet">#}
+{##}
+{#	<!-- Tigris styles CSS -->#}
+{#	<link href="{% static '' %}css/Tigris.css" rel="stylesheet" media="screen">#}
+{##}
+{##}
+{#	<link href="{% static '' %}css/custom.css" rel="stylesheet" media="screen">#}
+{#</head>#}
+{#<body>#}
+{##}
+{#	<!-- Preloader : Start -->#}
+{##}
+{#	<div id="loading">#}
+{#		<div id="loading-center">#}
+{#			<div class="spinner-grow" role="status">#}
+{#			  <span class="sr-only">Loading...</span>#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{##}
+{#	<!-- Preloader : End  -->#}
+
+	<!-- Navigation start -->
+
+	<!-- Navigation end -->
+
+	<!-- Portfolio start -->
+
+    {% if not user.is_authenticated %}
+         <div class="container" style="margin-top: 30px !important;">
+             <button type="button" class="btn btn-light"><a href="{% url 'login' %}">login</a></button>&nbsp;&nbsp;
+             <button type="button" class="btn btn-light"><a href="{% url 'register' %}">register</a></button>&nbsp;&nbsp;
+         </div>
+    {% else %}
+        <div class="container" style="margin-top: 30px !important;">
+            <button type="button" class="btn btn-light">{{ user.username }}</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: rgb(196, 204, 212) !important;">
+                Dropdown
+            </button>
+            <div class="dropdown-menu dropdown-menu-left">
+                <a class="dropdown-item" href="{% url 'logout' %}?from{{ request.get_full_path }}">exit</a>
+                <a class="dropdown-item" href="{% url 'blog_list' %}">blog</a>
+            </div>
+        </div>
+    {% endif %}
+
+
+
+    <section id="blog-page" class="module">
+		<div class="container">
+			<div class="row">
+
+				<div class="module-header wow fadeInUp">
+					<h2 class="module-title"><a href="{% url 'blog_list' %}">Blog</a> </h2>
+                    <div class="module-line"></div>
+				</div>
+
+			</div><!-- .row -->
+
+			<!-- Portfolio Filter start-->
+
+			<div class="row">
+                <div class="col-sm-12">
+                    <ul id="filter">
+                        <li class="active" data-group="all"><a href="{% url 'blog_list' %}">All</a></li>
+                        {% for blog_type in blog_types %}
+                            <li>
+                                <a href="{% url 'blogs_with_type' blog_type.pk%}">{{ blog_type.type_name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div><!-- .row -->
+
+			<!-- Portfolio Filter end -->
+
+		
+
+			<ul class="list-items-container blog-wrapper">
+
+                {% for blog in page_of_blogs.object_list %}
+                    <li class="list-item" data-group="all">
+                        <a href="{% url 'blog_detail' blog.pk %}" class="blogList wow fadeInUp">
+                            <div class="blogList-img">
+                                <img src="{{ blog.image.url }}" alt="Blog Desc" style="max-width:100%; border-radius: 20px">
+                                <span>Design</span>
+                            </div>
+                            <div class="blogList-desc">
+                                <h3>{{ blog.title }}</h3>
+                                <p>{{ blog.content|striptags|truncatechars:30 }}</p>
+                            </div>
+                        </a>
+                    </li>
+
+                {% endfor %}
+            </ul>
+            
+            <div class="container">
+                <ul class="pagination">
+                    {# 上一页 #}
+                    <li class="page-item">
+                        {% if page_of_blogs.has_previous %}
+                            <a class="page-link" href="?page={{ page_of_blogs.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        {% else %}
+                            <span class="page-link" aria-hidden="true">&laquo;</span>
+                        {% endif %}
+                    </li>
+                    {# 全部页码 #}
+                    {% for page_num in page_range %}
+                        {% if page_num == page_of_blogs.number %}
+                            <li class="page-item"><span class="page-link">{{ page_num }}</span></li>
+                        {% else %}
+                            {% if page_num == '...' %}
+                                <li class="page-item"><span class="page-link">{{ page_num }}</span></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {# 下一页 #}
+                    <li class="page-item">
+                        {% if page_of_blogs.has_next %}
+                            <a class="page-link" href="?page={{ page_of_blogs.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        {% else %}
+                            <span class="page-link" aria-hidden="true">&raquo;</span>
+                        {% endif %}
+                    </li>
+                </ul>
+                <p>
+                    共有{{ page_of_blogs.paginator.count }}篇博客，
+                    当前第{{ page_of_blogs.number }}页，共{{ page_of_blogs.paginator.num_pages }}页
+                </p>
+            </div>
+
+
+
+		</div><!-- .contaier -->
+
+	</section>
+
+{% endblock %}

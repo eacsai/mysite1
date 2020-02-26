@@ -1,0 +1,142 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+
+        {% endblock %}
+     </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Tigris - Personal Portfolio Template" />
+	<meta name="keywords" content="business card, creative, creative portfolio, cv theme, online resume, personal, portfolio, professional cv, responsive portfolio, resume, resume theme, vcard" />
+	<meta name="author" content="beingeorge" />
+	<meta name="theme-color" content="#1f1f20">
+
+    <!-- CSS -->
+	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+	<!-- Font Awesome CSS -->
+	<link href="{% static 'css/all.css' %}" rel="stylesheet" media="screen">
+
+	<!--[if lte IE 7]>
+		<script src="{% static 'js/icons-lte-ie7.js' %}"></script>
+	<![endif]-->
+
+	<link href="{% static 'css/vendor.css' %}" rel="stylesheet">
+
+	<!-- Tigris styles CSS -->
+	<link href="{% static 'css/Tigris.css' %}" rel="stylesheet" media="screen">
+
+
+	<link href="{% static 'css/custom.css' %}" rel="stylesheet" media="screen">
+
+    {% block mycss %}
+
+    {% endblock %}
+
+    {% block header_extends %}
+
+    {% endblock %}
+</head>
+<body>
+<!-- Preloader : Start -->
+
+	<div id="loading">
+		<div id="loading-center">
+			<div class="spinner-grow" role="status">
+			  <span class="sr-only">Loading...</span>
+			</div>
+		</div>
+	</div>
+
+<!-- Preloader : End  -->
+
+
+	<div class="menu-wrapper">
+		<button class="hamburger-menu">
+			<span class='hamburger'></span>
+			<span class='hamburger-overlay'></span>
+		</button>
+		<div class="Menu ham-tilt">
+			<ul class="Menu-list" >
+				<li class="Menu-list-item">
+					<a href="{% url 'home' %}">Home</a>
+				</li>
+				<li class="Menu-list-item">
+					<a href="#portfolio">Work</a>
+				</li>
+                <li class="Menu-list-item">
+					<a href="#blog">Blog</a>
+				</li>
+            </ul>
+		</div>
+	</div>
+
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+<!-- Footer start -->
+
+	<!-- Footer start -->
+
+	<footer id="footer" class="module-gray">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-12">
+
+					<a href="#home" class="footer-logo"><h2>Tigris</h2></a>
+
+					<ul class="social-links">
+						<li><a href="#" class="wow fadeInUp">Facebook</a></li>
+						<li><a href="#" class="wow fadeInUp" data-wow-delay=".1s">Twitter</a></li>
+						<li><a href="#" class="wow fadeInUp" data-wow-delay=".2s">Dribble</a></li>
+						<li><a href="#" class="wow fadeInUp" data-wow-delay=".3s">Linkedin</a></li>
+						<li><a href="#" class="wow fadeInUp" data-wow-delay=".4s">Pinterest</a></li>
+					</ul>
+
+					<p class="copyright wow fadeInUp">
+						© 2020 beingeorge, All Rights <a href="http://www.bootstrapmb.com">Reserved </a>.
+					</p>
+
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</footer>
+
+	<!-- Footer end -->
+
+	<!-- Footer end -->
+
+	<!-- Scroll-up -->
+
+	<div class="scroll-up">
+		<a href="#home" id="scroll-up"><i class="fas fa-arrow-up"></i></a>
+	</div>
+
+	<!-- Javascript files -->
+
+	<script src="{% static 'js/vendor.js' %}"></script>
+
+	<!-- Popper JS -->
+	<script src="{% static 'bootstrap/js/popper.js' %}"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+	<!-- Custom scripts -->
+	<script src="{% static 'js/custom.js' %}"></script>
+	<script src="{% static 'js/custom-shuffle-init.js' %}"></script>
+
+
+    {% block script_extends %}{% endblock %}
+
+</body>
+</html>
