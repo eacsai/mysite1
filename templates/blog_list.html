@@ -92,10 +92,10 @@
 
 			<div class="row">
                 <div class="col-sm-12">
-                    <ul id="filter">
+                    <ul id="fi">
                         <li class="active" data-group="all"><a href="{% url 'blog_list' %}">All</a></li>
                         {% for blog_type in blog_types %}
-                            <li>
+                            <li data-group="{{ blog_type.type_name }}" class>
                                 <a href="{% url 'blogs_with_type' blog_type.pk%}">{{ blog_type.type_name }}</a>
                             </li>
                         {% endfor %}
@@ -105,19 +105,19 @@
 
 			<!-- Portfolio Filter end -->
 
-		
 
-			<ul class="list-items-container blog-wrapper">
+
+			<ul class="list-items-container images-loaded shuffle">
 
                 {% for blog in page_of_blogs.object_list %}
-                    <li class="list-item" data-group="all">
+                    <li class="list-item shuffle-item filtered" data-group="all {{ blog.blog_type }}" >
                         <a href="{% url 'blog_detail' blog.pk %}" class="blogList wow fadeInUp">
                             <div class="blogList-img">
                                 <img src="{{ blog.image.url }}" alt="Blog Desc" style="max-width:100%; border-radius: 20px">
-                                <span>Design</span>
+                                <span>View</span>
                             </div>
                             <div class="blogList-desc">
-                                <h3>{{ blog.title }}</h3>
+                                <h3>{{ blog.title}}</h3>
                                 <p>{{ blog.content|striptags|truncatechars:30 }}</p>
                             </div>
                         </a>
@@ -125,7 +125,7 @@
 
                 {% endfor %}
             </ul>
-            
+
             <div class="container">
                 <ul class="pagination">
                     {# 上一页 #}

@@ -875,6 +875,37 @@ textarea.form-control {
 /* ---------------------------------------------- */
 
 /* Filter */
+#fi {
+	list-style-type: none;
+	text-align: center;
+	margin: 0 0 40px 0;
+	padding: 0;
+}
+#fi li{
+	display: inline-block;
+	font: 400 14px/1.2 'Poppins', sans-serif;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 1px;
+	padding: 7px 20px;
+	margin: 5px 10px;
+	color: #333;
+	cursor: pointer;
+	-webkit-transition: all 0.4s ease-in-out 0s;
+	-moz-transition: all 0.4s ease-in-out 0s;
+	-ms-transition: all 0.4s ease-in-out 0s;
+	-o-transition: all 0.4s ease-in-out 0s;
+	transition: all 0.4s ease-in-out 0s;
+	/*position: relative;*/
+	z-index: 1;
+}
+#fi li:hover:after,
+#fi li.active:after {
+	opacity: 1;
+	height: 10px;
+}
+
+
 
 #filter {
 	list-style-type: none;
@@ -1102,6 +1133,15 @@ img.mfp-img {
 #filter li:hover:not(.active) {
     background: #eee;
 }
+#fi li.active {
+    background: #f47a65;
+    color: #fff;
+}
+
+#fi li:hover:not(.active) {
+    background: #eee;
+}
+
 
 
 /* ---------------------------------------------- /*
